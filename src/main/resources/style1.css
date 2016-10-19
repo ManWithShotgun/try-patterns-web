@@ -1,0 +1,10 @@
+.box-demo{
+    position: relative;
+    height: 200px;
+    width: 100px;
+    margin: 50px;
+    padding: 50px;
+    border: 10px dotted gray;
+    border-radius: 888px;
+    left: 20px;
+}
