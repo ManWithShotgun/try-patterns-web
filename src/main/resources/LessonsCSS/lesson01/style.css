@@ -1,0 +1,55 @@
+body {background-color: aliceblue}
+a {color:#000060; font-weight: bold;}
+a:hover {color:#ff0000; font-weight: bold; text-decoration:none}
+h1 {color: #0000ff; font-size:18px}
+h2 {color: #ff00ff; font-size:16px}
+p {color: #600000; font-size:14px}
+
+.block{/*Селектор. типа класса. Задается при атрибудет class*/
+    height: 50px;
+    background-color: lightgrey;
+}
+.text-pad{
+    padding: 10px;
+}
+
+#header{/*селектор для id*/
+    font-family: monospace;
+    font-weight: bold;
+
+}
+
+.text-pad:hover{/*пвсевдо классы*/
+    background-color: blueviolet;
+    height: 5px;
+}
+.text-input{
+    border: 1px dotted gray;
+}
+.text-input:focus{
+    border: 2px dotted red;
+}
+#header:hover{
+    color: brown;
+}
+div{/*селектор для тегов (элементов)*/
+    border: 2px double tan;
+}
+div[be-text-name="text1"]{/*селектор для атрибутов*/
+    font-style: italic;
+}
+div[be-text-name="text1"]:hover{
+    font-style: normal;
+}
+
+div > p{/*для всех p внутри div'ов. Комбинированый селектор*/
+    text-align: right;
+}
+.text-pad .block{
+    height: 20px;
+}
+
+.block .text-pad{
+    color: red;
+    height: 20px;
+}

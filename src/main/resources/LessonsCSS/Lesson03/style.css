@@ -1,0 +1,41 @@
+/*svg используется для рисования графики на html*/
+/*#id - anchor, переходит к элементу с id*/
+
+a{
+  text-decoration: none;
+  font-family: arial;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: lime;
+}
+
+button{
+  padding: 25px;
+
+}
+
+.btn-link{
+  padding: 3px;
+  border: none;
+  background-color: inherit;/*inherit наследует стиль род. блока*/
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: serif;
+  color: -webkit-link
+}
+.btn-link:active{
+  color: red;
+}
+.btn-link:focus{
+  outline: none;
+}
+
+
+input[type=text]{
+  height: 60px;
+  padding-left: 15px;
+  font-size: 20px;
+}
+input[type=text]:focus{
+  outline: 2px solid lime;
+}
