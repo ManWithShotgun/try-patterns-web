@@ -1,0 +1,9 @@
+.div-login{
+  display: inline-block;
+}
+label{
+  display: block;
+}
+label.check{
+  display: inline;
+}
