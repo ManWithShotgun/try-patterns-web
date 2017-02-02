@@ -1,4 +1,4 @@
-package ru.nio;
+package ru.nio.test2;
 
 import java.io.*;
 import java.net.*;
@@ -39,8 +39,7 @@ public class Server2 {
                 Set keySet = selector.selectedKeys();
                 Iterator itor = keySet.iterator();
                 while (itor.hasNext()) {
-                    SelectionKey selectionKey =
-                            (SelectionKey) itor.next();
+                    SelectionKey selectionKey = (SelectionKey) itor.next();
                     itor.remove();
                     Socket socket = null;
                     SocketChannel channel = null;
@@ -48,8 +47,7 @@ public class Server2 {
                         System.out.println("Got acceptable key");
                         try {
                             socket = serverSocket.accept();
-                            System.out.println
-                                    ("Connection from: " + socket);
+                            System.out.println("Connection from: " + socket);
                             channel = socket.getChannel();
                         } catch (IOException e) {
                             System.err.println("Unable to accept channel");
@@ -58,11 +56,9 @@ public class Server2 {
                         }
                         if (channel != null) {
                             try {
-                                System.out.println
-                                        ("Watch for something to read");
+                                System.out.println("Watch for something to read");
                                 channel.configureBlocking(false);
-                                channel.register
-                                        (selector, SelectionKey.OP_READ);
+                                channel.register(selector, SelectionKey.OP_READ);
                             } catch (IOException e) {
                                 System.err.println("Unable to use channel");
                                 e.printStackTrace();
@@ -72,8 +68,7 @@ public class Server2 {
                     }
                     if (selectionKey.isReadable()) {
                         System.out.println("Reading channel");
-                        SocketChannel socketChannel =
-                                (SocketChannel) selectionKey.channel();
+                        SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
                         sharedBuffer.clear();
                         int bytes = -1;
                         try {

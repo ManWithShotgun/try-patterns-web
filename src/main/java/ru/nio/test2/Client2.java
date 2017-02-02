@@ -1,4 +1,4 @@
-package ru.nio;
+package ru.nio.test2;
 
 import java.net.*;
 import java.io.*;
