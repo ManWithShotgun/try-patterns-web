@@ -1,4 +1,6 @@
-package ru.nio.test1;
+package ru.nio.calc;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -11,9 +13,9 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * Created by ILIA on 01.02.2017.
+ * Created by ILIA on 02.02.2017.
  */
-public class Server {
+public class ServerCalc {
     public static void main(String[] args) throws IOException, InterruptedException {
         Selector selector = Selector.open();
 
@@ -53,7 +55,7 @@ public class Server {
                     client.configureBlocking(false);
 
                     /*Обезательно надо регистрировать на клиента*/
-                    client.register(selector, SelectionKey.OP_WRITE);
+                    client.register(selector, SelectionKey.OP_READ);
 //                    myKey.interestOps(SelectionKey.OP_READ);
                     log("Connection Accepted: " + client.getLocalAddress() + "\n");
 
@@ -65,21 +67,48 @@ public class Server {
                         SocketChannel client = (SocketChannel) myKey.channel();
                         ByteBuffer buffer = ByteBuffer.allocate(256);
                         client.read(buffer);
-                        String result = new String(buffer.array()).trim();
-//                        String str="Hello";
-//                        client.write(ByteBuffer.wrap(str.getBytes()));
-                        log("received: " + result);
-                        String str="Hello";
-                        ByteBuffer buffer2=ByteBuffer.wrap(str.getBytes());
+                        String recv = new String(buffer.array()).trim();
+                        log("received: " + recv);
+                        if (recv.equals("exit")) {
+                            client.close();
+                            log("recv exit");
+                            continue;
+                        }
+                        String sendText="";
+                        String[] strings=recv.split(";");
+//                        for (String str : strings){
+//                            log("str "+str);
+//                        }
+                        if(strings[0].equals("1")){
+                            double x=Double.parseDouble(strings[1]);
+                            sendText+= Math.sin(x);
+                        }
+                        if(strings[0].equals("2")){
+                            double x=Double.parseDouble(strings[1]);
+                            sendText+= Math.cos(x);
+                        }
+                        if(strings[0].equals("3")){
+                            double x=Double.parseDouble(strings[1]);
+                            sendText+= Math.tan(x);
+
+                        }
+                        if(strings[0].equals("4")){
+                            double x=Double.parseDouble(strings[1]);
+                            double y=Double.parseDouble(strings[2]);
+                            sendText+= Math.pow(x,1/y);
+                        }
+                        if(strings[0].equals("5")){
+                            double x=Double.parseDouble(strings[1]);
+                            double y=Double.parseDouble(strings[2]);
+                            sendText+= Math.pow(x,y);
+                        }
+                        ByteBuffer buffer2=ByteBuffer.wrap(sendText.getBytes());
                         client.write(buffer2);
                         buffer2.clear();
 //                        client.register(selector, SelectionKey.OP_WRITE);
 //                        myKey.interestOps(SelectionKey.OP_WRITE);
 
-                        if (result.equals("exit")) {
-                            client.close();
-                            log("recv exit");
-                        }
+
                     }catch (IOException e){
                         System.err.println("Error writing back bytes");
 //                        e.printStackTrace();
